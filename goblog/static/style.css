@@ -14,7 +14,7 @@ h6 {
 }
 
 .bg-navcol {
-  background-color: #007065;
+  background-color: #036619;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -29,8 +29,11 @@ h6 {
   font-weight: 500;
 }
 
+.make-center{
+  margin : 20px auto;
+}
 .content-section {
-  background: #ffffff;
+  background: #fbe0ac;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
@@ -38,7 +41,7 @@ h6 {
 }
 
 .article-title {
-  color: #444444;
+  color: #1b012c;
 }
 
 a.article-title:hover {
