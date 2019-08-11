@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship("Post", backref="author", lazy=True)
+    comments = db.relationship("Comment", backref="author", lazy=True)
 
     def upvote_post(self, post):
         if not self.has_upvoted_post(post):
@@ -74,6 +75,7 @@ class Post(db.Model):
     upvotes_count = db.Column(db.Integer, nullable=False, default=0)
     upvotes = db.relationship("PostUpvote", backref="post", lazy=True)
     downvotes = db.relationship("PostDownvote", backref="post", lazy=True)
+    comments = db.relationship("Comment", backref="post", lazy=True)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -103,3 +105,13 @@ class PostDownvote(db.Model):
 
     def __repr__(self):
         return f"Post_id('{self.post_id}') User_id('{self.user_id}')"
+
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text, nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+    def __repr__(self):
+        return f"Comment('{self.body}')"

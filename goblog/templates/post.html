@@ -6,11 +6,13 @@
         src="{{ url_for('static',filename='profile_pics/' + post.author.image_file) }}">
     <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{{ url_for('users.user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
+            <a class="mr-2"
+                href="{{ url_for('users.user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
             <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
             {% if post.author == current_user %}
             <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1"
+                    href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
                 <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
                     data-target="#deleteModal">Delete</button>
             </div>
@@ -19,7 +21,53 @@
         <h2 class="article-title">{{ post.title }}</h2>
         <p class="article-content">{{ post.content }}</p>
     </div>
+    <div>
+        <a href="{{ url_for('posts.upvote',post_id=post.id) }}">upvote</a>
+        <span>{{ post.upvotes_count }}</span>
+        <a href="{{ url_for('posts.downvote',post_id=post.id) }}">downvote</a>
+    </div>
 </article>
+<div class="row bootstrap snippets">
+    <div class="col-md-12 col-md-offset-2 col-sm-12">
+        <div class="comment-wrapper">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    {% if current_user.is_authenticated %}
+                    <form action="{{ url_for('posts.post',post_id=post.id) }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            {{ form.comment_body(class="form-control",placeholder="write a comment...",rows="3") }}
+                        </fieldset>
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-outline-info float-right") }}
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                    <hr>
+                    {% endif %}
+                    <ul class="media-list">
+                        {% for comment in comments %}
+                        <li class="media">
+                            <a href="#" class="float-left">
+                                <img src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}"
+                                    alt="" class="rounded-circle article-img">
+                            </a>
+                            <div class="media-body">
+                                <span class="text-muted float-right">
+                                    <small class="text-muted">30 min ago</small>
+                                </span>
+                                <strong class="text-success">@{{ comment.author.username }}</strong>
+                                <p>{{ comment.body }}</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
     aria-hidden="true">

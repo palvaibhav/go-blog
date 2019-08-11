@@ -29,8 +29,8 @@ h6 {
   font-weight: 500;
 }
 
-.make-center{
-  margin : 20px auto;
+.make-center {
+  margin: 20px auto;
 }
 .content-section {
   background: #fbe0ac;
@@ -62,7 +62,7 @@ a.article-title:hover {
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
+  border-bottom: 1px solid #e3e3e3;
 }
 
 .article-metadata a:hover {
@@ -85,4 +85,25 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.comment-wrapper .panel-body {
+  max-height: 650px;
+  overflow: auto;
+}
+
+.comment-wrapper .media-list .media img {
+  width: 64px;
+  height: 64px;
+  border: 2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+  border-bottom: 1px dashed #efefef;
+  margin-bottom: 25px;
+}
+
+.comment-img {
+  height: 20px;
+  width: 20px;
 }
