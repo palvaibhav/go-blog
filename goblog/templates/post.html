@@ -45,6 +45,7 @@
                     <div class="clearfix"></div>
                     <hr>
                     {% endif %}
+                    <h1><small class="float-right">{{ count_of_comments }} comments</small>Comments</h1>
                     <ul class="media-list">
                         {% for comment in comments %}
                         <li class="media">
@@ -54,7 +55,7 @@
                             </a>
                             <div class="media-body">
                                 <span class="text-muted float-right">
-                                    <small class="text-muted">30 min ago</small>
+                                    <small class="text-muted">{{ get_time_passed(comment.date_posted) }} ago</small>
                                 </span>
                                 <strong class="text-success">@{{ comment.author.username }}</strong>
                                 <p>{{ comment.body }}</p>
