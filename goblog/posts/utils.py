@@ -5,7 +5,6 @@ def get_time_passed(date_posted):
     current_time = datetime.utcnow()
     delta = current_time - date_posted
     tot_sec = delta.total_seconds()
-    print(tot_sec)
     if tot_sec < 60:
         return f"{int(tot_sec)} sec"
     elif tot_sec < 60 * 60:
