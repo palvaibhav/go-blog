@@ -20,7 +20,6 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    app.debug = True
     
     from goblog.users.routes import users
     from goblog.posts.routes import posts
