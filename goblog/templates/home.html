@@ -15,8 +15,8 @@
         <p class="article-content">{{ post.content }}</p>
 
         <div>
-            <a class="btn btn-success px-2" href="{{ url_for('posts.upvote',post_id=post.id) }}">Upvote</a>
-            <a class="btn btn-danger px-2" href="{{ url_for('posts.downvote',post_id=post.id) }}">Downvote</a> 
+            <a class="btn btn-outline-success px-2 mx-2" href="{{ url_for('posts.upvote',post_id=post.id) }}">Upvote</a>
+            <a class="btn btn-outline-danger px-2 mx-2" href="{{ url_for('posts.downvote',post_id=post.id) }}">Downvote</a> 
             <span class="px-2 text-secondary">{{ post.upvotes_count }} people have liked the post.</span>            
             
             <a class="btn btn-primary float-right" href="{{ url_for('posts.post',post_id=post.id) }}">Comments</a>

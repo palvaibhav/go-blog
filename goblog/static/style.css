@@ -14,31 +14,16 @@ h6 {
 }
 
 .bg-navcol {
-  background-color: #0e080a;
-}
-
-.body-bg{
-  background-image: linear-gradient(to right, rgb(134, 45, 45) , rgb(18, 13, 92));
+  background-color: #007065;
 }
 
 .site-header .navbar-nav .nav-link {
-  color: #cbd5db;
-}
-
-.logo{
-  width: 90px;
-  height: 43px;
-  border-radius: .5rem;
-}
-.logo:hover{
-  transform: scale(1.04);
-  transition: .2s;
+  color: #ffffff;
 }
 
 
 .site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
-  background-color: #428bca;
+  background-color: #142f1a;
   transition: .2s;
 }
 
@@ -47,9 +32,9 @@ h6 {
 }
 
 .content-section {
-  background-color: #b7b7cf;
+  background-color: #f0f1d7;
   padding: 10px 20px;
-  border: 3px solid #342d94;
+  
   border-radius: 3px;
   margin-bottom: 20px;
   border-radius: 1rem;
