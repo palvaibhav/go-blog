@@ -39,7 +39,7 @@ def post(post_id):
     comments = post.comments
     count_of_comments = Comment.query.filter_by(post_id=post_id).count()
     return render_template(
-        "post.html",
+        "post_details.html",
         title=post.title,
         post=post,
         form=form,
@@ -86,7 +86,6 @@ def delete_post(post_id):
 def upvote(post_id):
     post = Post.query.filter_by(id=post_id).first()
     current_user.upvote_post(post)
-    print(request.form)
     return redirect(url_for("main.home"))
 
 

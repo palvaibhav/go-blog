@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    {% include 'post.html' %}
+
+    <!-- Comment section -->
+    <div class="row bootstrap snippets">
+        <div class="col-md-12 col-md-offset-2 col-sm-12">
+            <div class="comment-wrapper">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        {% if current_user.is_authenticated %}
+                            <form action="{{ url_for('posts.post',post_id=post.id) }}" method="POST">
+                                {{ form.hidden_tag() }}
+                                <fieldset class="form-group">
+                                    {{ form.comment_body(class="form-control",placeholder="write a comment...",rows="3") }}
+                                </fieldset>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn btn-outline-info float-right") }}
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                            <hr>
+                        {% endif %}
+                        <h1><small class="float-right">{{ count_of_comments }} comments</small>Comments</h1>
+                        <ul class="media-list">
+                            {% for comment in comments %}
+                                <li class="media">
+                                    <a href="#" class="float-left">
+                                        <img src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}"
+                                            alt="" class="rounded-circle article-img">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted float-right">
+                                            <small class="text-muted">{{ comment.get_time_passed() }} ago</small>
+                                        </span>
+                                        <strong class="text-success">@{{ comment.author.username }}</strong>
+                                        <p>{{ comment.body }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
