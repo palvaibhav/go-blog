@@ -5,21 +5,25 @@
 <article class="media content-section">
     <img class="rounded-circle article-img"
         src="{{ url_for('static',filename='profile_pics/' + post.author.image_file) }}">
-    <div class="media-body">
+    <div class="media-body pl-3">
         <div class="article-metadata">
-            <a class="mr-2"
+            <a class="mr-2 text-capitalize text-danger h5"
                 href="{{ url_for('users.user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
-            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            <small class="text-muted float-right pr-4 h6">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
         </div>
         <h2><a class="article-title" href="{{ url_for('posts.post',post_id=post.id) }}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
-        <a href="{{ url_for('posts.post',post_id=post.id) }}">Comments</a>
+
+        <div>
+            <a class="btn btn-success px-2" href="{{ url_for('posts.upvote',post_id=post.id) }}">Upvote</a>
+            <a class="btn btn-danger px-2" href="{{ url_for('posts.downvote',post_id=post.id) }}">Downvote</a> 
+            <span class="px-2 text-secondary">{{ post.upvotes_count }} people have liked the post.</span>            
+            
+            <a class="btn btn-primary float-right" href="{{ url_for('posts.post',post_id=post.id) }}">Comments</a>
+
+        </div>
     </div>
-    <div>
-        <a href="{{ url_for('posts.upvote',post_id=post.id) }}">upvote</a>
-        <span>{{ post.upvotes_count }}</span>
-        <a href="{{ url_for('posts.downvote',post_id=post.id) }}">downvote</a>
-    </div>
+    
 </article>
 {% endfor %}
 {% for page_num in posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
