@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from goblog import db
 from goblog.models import Post, Comment
 from goblog.posts.forms import PostForm, CommentForm
-from goblog.posts.utils import get_time_passed
+
 
 posts = Blueprint("posts", __name__)
 
@@ -45,7 +45,6 @@ def post(post_id):
         form=form,
         comments=comments,
         count_of_comments=count_of_comments,
-        get_time_passed=get_time_passed,
     )
 
 

@@ -73,9 +73,15 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     upvotes_count = db.Column(db.Integer, nullable=False, default=0)
-    upvotes = db.relationship("PostUpvote", backref="post", lazy=True)
-    downvotes = db.relationship("PostDownvote", backref="post", lazy=True)
-    comments = db.relationship("Comment", backref="post", lazy=True)
+    upvotes = db.relationship(
+        "PostUpvote", cascade="all,delete", backref="post", lazy=True
+    )
+    downvotes = db.relationship(
+        "PostDownvote", cascade="all,delete", backref="post", lazy=True
+    )
+    comments = db.relationship(
+        "Comment", cascade="all,delete", backref="post", lazy=True
+    )
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -113,6 +119,28 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+    def get_time_passed(self):
+        current_time = datetime.utcnow()
+        delta = current_time - self.date_posted
+        tot_sec = delta.total_seconds()
+        if tot_sec < 60:
+            return f"{int(tot_sec)} sec"
+        elif tot_sec < 60 * 60:
+            tot_min = tot_sec / 60
+            return f"{int(tot_min)} min"
+        elif tot_sec < 24 * 60 * 60:
+            tot_hrs = tot_sec / 60 / 60
+            return f"{int(tot_hrs)} hrs"
+        elif tot_sec < 30 * 24 * 60 * 60:
+            tot_days = tot_sec / 60 / 60 / 24
+            return f"{int(tot_days)} days"
+        elif tot_sec < 365 * 24 * 60 * 60:
+            tot_months = tot_sec / 60 / 60 / 24 / 30
+            return f"{int(tot_months)} months"
+        else:
+            tot_yrs = tot_sec / 60 / 60 / 24 / 30 / 365
+            return f"{int(tot_yrs)} years"
 
     def __repr__(self):
         return f"Comment('{self.body}')"
