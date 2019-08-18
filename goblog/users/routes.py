@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
 from goblog import db, bcrypt
 from goblog.models import User, Post
@@ -99,3 +99,21 @@ def reset_token(token):
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html',title='Reset Password',form=form)
+
+@users.route('/api/users', methods=['GET'])
+def get_all_users():
+    users = User.query.order_by(User.id)
+    return jsonify(users = [i.serialize for i in users])
+    
+
+@users.route('/api/users/<int:id>', methods=['GET'])
+def get_particular_user_posts(id):
+    user = User.query.filter_by(id=id).first_or_404()
+    posts = user.posts;
+    return jsonify(posts = [i.serialize for i in posts])
+    
+@users.route('/api/posts', methods=['GET'])
+def get_all_posts():
+    posts = Post.query.order_by(Post.id)
+    return jsonify(posts = [i.serialize for i in posts])
+    

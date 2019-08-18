@@ -19,17 +19,29 @@ class User(db.Model, UserMixin):
     posts = db.relationship("Post", backref="author", lazy=True)
     comments = db.relationship("Comment", backref="author", lazy=True)
 
+    @property
+    def serialize(self):
+        return {
+            'user_id':self.id,
+            'user_name':self.username,
+            'user_email':self.email,
+        }
+
     def upvote_post(self, post):
         if not self.has_upvoted_post(post):
             upvote = PostUpvote(user_id=self.id, post_id=post.id)
             db.session.add(upvote)
-            post.upvotes_count = post.upvotes_count + 1
+            
             if self.has_downvoted_post(post):
                 downvote = PostDownvote.get_post_downvote(
                     user_id=self.id, post_id=post.id
                 )
                 db.session.delete(downvote)
+                post.upvotes_count = post.upvotes_count + 2
+            else:
+                post.upvotes_count = post.upvotes_count + 1
             db.session.commit()
+
 
     def has_upvoted_post(self, post):
         return PostUpvote.query.filter_by(user_id=self.id, post_id=post.id).count() > 0
@@ -38,11 +50,15 @@ class User(db.Model, UserMixin):
         if not self.has_downvoted_post(post):
             downvote = PostDownvote(user_id=self.id, post_id=post.id)
             db.session.add(downvote)
-            post.upvotes_count = post.upvotes_count - 1
+            
             if self.has_upvoted_post(post):
                 upvote = PostUpvote.get_post_upvote(user_id=self.id, post_id=post.id)
+                post.upvotes_count = post.upvotes_count - 2
                 db.session.delete(upvote)
+            else:
+                post.upvotes_count = post.upvotes_count - 1
             db.session.commit()
+
 
     def has_downvoted_post(self, post):
         return (
@@ -82,6 +98,16 @@ class Post(db.Model):
     comments = db.relationship(
         "Comment", cascade="all,delete", backref="post", lazy=True
     )
+
+    @property
+    def serialize(self):
+        return {
+            'post_id':self.id,
+            'title':self.title,
+            'content':self.content,
+            'date_posted':self.date_posted,
+            'upvotes':self.upvotes_count
+        }
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -125,13 +151,13 @@ class Comment(db.Model):
         delta = current_time - self.date_posted
         tot_sec = delta.total_seconds()
         if tot_sec < 60:
-            return f"{int(tot_sec)} sec"
+            return f"{int(tot_sec)} seconds"
         elif tot_sec < 60 * 60:
             tot_min = tot_sec / 60
-            return f"{int(tot_min)} min"
+            return f"{int(tot_min)} minutes"
         elif tot_sec < 24 * 60 * 60:
             tot_hrs = tot_sec / 60 / 60
-            return f"{int(tot_hrs)} hrs"
+            return f"{int(tot_hrs)} hours"
         elif tot_sec < 30 * 24 * 60 * 60:
             tot_days = tot_sec / 60 / 60 / 24
             return f"{int(tot_days)} days"

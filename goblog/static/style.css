@@ -21,6 +21,14 @@ h6 {
   color: #ffffff;
 }
 
+.mysize{
+  font-size: 1.3rem;
+}
+.votes-logo img{
+  width:25px;
+  height:25px;
+}
+
 
 .site-header .navbar-nav .nav-link:hover {
   background-color: #142f1a;
