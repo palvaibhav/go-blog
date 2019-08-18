@@ -28,7 +28,16 @@ h6 {
   width:25px;
   height:25px;
 }
-
+.logo{
+  background-color: #000;
+  color:#fff;
+  border-radius: 10px;
+}
+.logo-in{
+  color:#000;
+  background-color: #d16704;
+  border-radius: 10px;
+}
 
 .site-header .navbar-nav .nav-link:hover {
   background-color: #142f1a;
