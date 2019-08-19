@@ -27,11 +27,11 @@
             <h2><a class="article-title" href="{{ url_for('posts.post',post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
             <div>
-                <a class="px-2" href="{{ url_for('posts.upvote',post_id=post.id) }}">
+                <a onclick="return true" class="px-2" href="{{ url_for('posts.upvote',post_id=post.id) }}">
                     <img src="https://sta.codeforces.com/s/27549/images/actions/voteup.png" alt="">
                 </a>
 
-                <a class="px-2" href="{{ url_for('posts.downvote',post_id=post.id) }}">
+                <a onclick="return true" class="px-2" href="{{ url_for('posts.downvote',post_id=post.id) }}">
                     <img src="https://sta.codeforces.com/s/27549/images/actions/votedown.png" alt="">
                 </a>
 

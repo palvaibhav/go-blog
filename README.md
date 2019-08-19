@@ -4,7 +4,7 @@
 # Go-Blog
 
   
-
+http://52.14.36.51:5000/
 A blogging website where users can register/login to create new posts, update and delete posts.
 
   
