@@ -1,42 +1,55 @@
-<article class="media content-section">
-    <img class="rounded-circle article-img"
-        src="{{ url_for('static',filename='profile_pics/' + post.author.image_file) }}">
-    <div class="media-body pl-3">
-        <div class="article-metadata">
-            <a class="mr-2 text-capitalize text-danger h5"
-                href="{{ url_for('users.user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
-            {% if post.author == current_user %}
-                <a class="btn btn-info btn-sm mx-3 my-1"
-                    href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
-                <button type="button" class="btn btn-danger btn-sm mx-3 my-1" data-toggle="modal"
-                    data-target="#deleteModal">Delete</button>
-            {% endif %}
-            <small class="text-muted float-right pr-4 h6">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
+<div class="container content-section">
+    <div class="row">
+        <div class="col-md-2 col-sm-3 col-xs-2">
+            <img class="rounded-circle article-img"
+                src="{{ url_for('static',filename='profile_pics/' + post.author.image_file) }}">
         </div>
-        <h2><a class="article-title" href="{{ url_for('posts.post',post_id=post.id) }}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
-        <div class="votes-logo">
-            <a class="px-2" href="{{ url_for('posts.upvote',post_id=post.id) }}">
-                <img src="https://sta.codeforces.com/s/27549/images/actions/voteup.png" alt="">
-            </a>
-                    
-            <a class="px-2"
-                href="{{ url_for('posts.downvote',post_id=post.id) }}">
-                <img src="https://sta.codeforces.com/s/27549/images/actions/votedown.png" alt="">
-            </a>
+        <div class="col-md-10 col-sm-9 col-xs-10">
+            <div class="article-metadata">
+                <a class="mr-2 text-capitalize text-danger h5"
+                    href="{{ url_for('users.user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
+                <small class="text-muted float-right pr-4 h6">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
 
-            {% if post.upvotes_count < 0 %}
-                <span class="px-2 mysize text-danger"><span class="mx-1">-</span>{{ -post.upvotes_count }} </span>      
-            {% elif post.upvotes_count > 0%}
+                {% if post.author == current_user %}
+                <div class="container py-1">
+                    <div class="row">
+                        <a class="btn btn-info btn-sm mx-3 my-1"
+                            href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+
+                        <button type="button" class="btn btn-danger btn-sm mx-3 my-1" data-toggle="modal"
+                            data-target="#deleteModal">Delete</button>
+
+                    </div>
+                </div>
+
+                {% endif %}
+            </div>
+            <h2><a class="article-title" href="{{ url_for('posts.post',post_id=post.id) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+            <div>
+                <a class="px-2" href="{{ url_for('posts.upvote',post_id=post.id) }}">
+                    <img src="https://sta.codeforces.com/s/27549/images/actions/voteup.png" alt="">
+                </a>
+
+                <a class="px-2" href="{{ url_for('posts.downvote',post_id=post.id) }}">
+                    <img src="https://sta.codeforces.com/s/27549/images/actions/votedown.png" alt="">
+                </a>
+
+                {% if post.upvotes_count < 0 %}
+                <span class="px-2 mysize text-danger"><span class="mx-1">-</span>{{ -post.upvotes_count }} </span>
+                {% elif post.upvotes_count > 0%}
                 <span class="px-2 mysize text-success"><span class="mx-1">+</span>{{ post.upvotes_count }} </span>
-            {% else %}
+                {% else %}
                 <span class="px-2 ml-2 pl-1 mysize text-secondary">{{ post.upvotes_count }} </span>
-            {% endif %}
+                {% endif %}
 
-            <a class="btn btn-primary float-right" href="{{ url_for('posts.post',post_id=post.id) }}">Comments</a>
+                <a class="btn btn-primary float-right" href="{{ url_for('posts.post',post_id=post.id) }}">Comments</a>
+            </div>
         </div>
     </div>
-</article>
+</div>
+
+
 
 <!-- modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
