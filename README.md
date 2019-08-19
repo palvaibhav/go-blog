@@ -1,11 +1,20 @@
 
   
 
+  
+
 # Go-Blog
 
   
+
 http://52.14.36.51:5000/
+
+  
+  
+
 A blogging website where users can register/login to create new posts, update and delete posts.
+
+  
 
   
 
@@ -13,7 +22,11 @@ A blogging website where users can register/login to create new posts, update an
 
   
 
+  
+
 1. Registered users can add comments.
+
+  
 
   
 
@@ -21,7 +34,11 @@ A blogging website where users can register/login to create new posts, update an
 
   
 
+  
+
 3. Use API endpoints to fetch data from the app.
+
+  
 
   
 
@@ -33,7 +50,11 @@ A blogging website where users can register/login to create new posts, update an
 
   
 
+  
+
 ## 1. Cloning the Repository
+
+  
 
   
 
@@ -41,10 +62,17 @@ Clone the repository and navigate to the go-blog folder.
 
   
 
+  
+
 ```
-	git clone https://github.com/palvaibhav/go-blog.git
-	cd go-blog
+
+git clone https://github.com/palvaibhav/go-blog.git
+
+cd go-blog
+
 ```
+
+  
 
   
 
@@ -52,15 +80,25 @@ Clone the repository and navigate to the go-blog folder.
 
   
 
+  
+
 Create virtual Environment where you will install all the required packages.
 
   
 
+  
+
 ```
-	virtualenv venv
-	source venv/bin/activate
-	pip3 install -r requirements.txt
+
+virtualenv venv
+
+source venv/bin/activate
+
+pip3 install -r requirements.txt
+
 ```
+
+  
 
   
 
@@ -70,54 +108,92 @@ Create virtual Environment where you will install all the required packages.
 
   
 
+  
+
 1. Install PostgresSQL to local machine
 
   
 
+  
+
 ```
-	sudo apt-get install postgresql postgresql-contrib
-	sudo -u postgres createuser --superuser <name_of_user>
+
+sudo apt-get install postgresql postgresql-contrib
+
+sudo -u postgres createuser --superuser <name_of_user>
+
 ```
+
+  
 
   
 
 2. Create Database
 
   
+
 ```
-	sudo -u <name_of_user> createdb <name_of_db>
-	psql -U <name_of_user>  -d <name_of_db>
+
+sudo -u <name_of_user> createdb <name_of_db>
+
+psql -U <name_of_user>  -d <name_of_db>
+
 ```
+
+  
 
   
 
 3. In config.py add the following line:-
 
+  
+
 ```
-	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+
 ```
+
+  
 
 4. In ~/.bashrc add the following line:-
 
+  
+
 ```
-	export DATABASE_URL="postgresql:///<name_of_db>"
+
+export DATABASE_URL="postgresql:///<name_of_db>"
+
 ```
+
+  
 
   
 
 5. Create migrations folder
+
   
 
 ```
-	python manage.py db init
-	python manage.py db migrate
-	python manage.py db upgrade
+
+python manage.py db init
+
+python manage.py db migrate
+
+python manage.py db upgrade
+
 ```
+
+  
 
 6. Run the server and  open the browser and  type localhost:5000
 
   
 
+  
+
 ```
-	python manage.py runserver
+
+python manage.py runserver
+
 ```
