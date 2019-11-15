@@ -5,9 +5,9 @@
 
 # Go-Blog
 
-  
+Heroku : https://go-blog-online.herokuapp.com/home
 
-http://52.14.36.51:5000/
+AWS : http://52.14.36.51:5000/
 
   
   
